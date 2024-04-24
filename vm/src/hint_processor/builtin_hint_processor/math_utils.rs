@@ -36,6 +36,25 @@ use super::{
     uint256_utils::Uint256,
 };
 
+// pub const OFFSET_2_IMM: &str = "memory[ap] = to_felt_or_relocatable(ids.initial_gas >= ids.required_gas))";
+
+pub fn offset_two_imm(
+    vm: &mut VirtualMachine,
+    ids_data: &HashMap<String, HintReference>,
+    ap_tracking: &ApTracking,
+) -> Result<(), HintError> {
+
+    dbg!("Start offset_two_imm");
+    let initial_gas = get_integer_from_var_name("initial_gas", vm, ids_data, ap_tracking)?;
+    let required_gas = get_integer_from_var_name("required_gas", vm, ids_data, ap_tracking)?;
+
+    if initial_gas > required_gas {
+        println!("Es por aca");
+        insert_value_into_ap(vm, Felt252::ONE)?
+
+    }
+    return Ok(());
+}
 const ADDR_BOUND: &str = "starkware.starknet.common.storage.ADDR_BOUND";
 
 //Implements hint: memory[ap] = 0 if 0 <= (ids.a % PRIME) < range_check_builtin.bound else 1

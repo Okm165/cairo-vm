@@ -201,6 +201,7 @@ impl HintProcessorLogic for BuiltinHintProcessor {
         }
         match &*hint_data.code {
             hint_code::ADD_SEGMENT => add_segment(vm),
+            hint_code::OFFSET_2_IMM => offset_two_imm(vm, &hint_data.ids_data, &hint_data.ap_tracking),
             hint_code::IS_NN => is_nn(vm, &hint_data.ids_data, &hint_data.ap_tracking),
             hint_code::IS_NN_OUT_OF_RANGE => {
                 is_nn_out_of_range(vm, &hint_data.ids_data, &hint_data.ap_tracking)
